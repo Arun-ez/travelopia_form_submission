@@ -2,7 +2,7 @@ import { getAllData, postData } from "@/controllers/travellers.controller";
 
 const GET = async (req, res) => {
     try {
-        let response = await getAllData();
+        let response = await getAllData(req.query);
         res.send(response);
     } catch (error) {
         res.status(500).send({ error: error.message });
