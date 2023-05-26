@@ -1,0 +1,24 @@
+.logo_container {
+    margin-top: 50px;
+    color: black;
+}
+
+.logo_container b {
+    font-family: Designer;
+    font-size: 90px;
+    margin-bottom: 0;
+}
+
+.logo_container p {
+    margin: 0;
+    padding-left: 10px;
+    font-size: 12px;
+    opacity: 80%;
+    letter-spacing: 2px;
+}
+
+@media (0px <=width <=500px) {
+    .logo_container b {
+        font-size: 70px;
+    }
+}
