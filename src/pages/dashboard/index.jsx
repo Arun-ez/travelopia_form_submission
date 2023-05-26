@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import styles from '@/styles/Dashboard.module.css';
 import { useEffect, useState } from 'react';
-import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
+import { SlArrowLeft, SlArrowRight, SlRefresh } from 'react-icons/sl';
 
 
 const Dashboard = () => {
@@ -78,6 +78,7 @@ const Dashboard = () => {
               </div>
 
               <div>
+                <SlRefresh className={styles.refresh} onClick={load} />
                 <button onClick={csv_download_handler} > Save as CSV </button>
               </div>
             </div>
