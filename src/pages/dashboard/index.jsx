@@ -1,6 +1,9 @@
+import Papa from 'papaparse';
+import { saveAs } from 'file-saver';
 import styles from '@/styles/Dashboard.module.css';
 import { useEffect, useState } from 'react';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
+
 
 const Dashboard = () => {
 
@@ -21,8 +24,19 @@ const Dashboard = () => {
   }
 
   const page_onchange_handler = (payload) => {
-
     set_page((prev) => prev + payload);
+  }
+
+  const csv_download_handler = async () => {
+    try {
+      let response = await fetch(`/api/travellers`);
+      let json = await response.json();
+      let csv = Papa.unparse(json);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      saveAs(blob, 'submissions.csv');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -64,7 +78,7 @@ const Dashboard = () => {
               </div>
 
               <div>
-                <button> Save as CSV </button>
+                <button onClick={csv_download_handler} > Save as CSV </button>
               </div>
             </div>
             <table className={styles.table}>
