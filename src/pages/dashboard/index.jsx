@@ -7,10 +7,11 @@ const Dashboard = () => {
   const [data, set_data] = useState(null);
   const [page, set_page] = useState(1);
   const [page_end_point, set_page_end_point] = useState(0);
+  const [sort_order, set_sort_order] = useState("");
 
   const load = async () => {
     try {
-      let response = await fetch(`/api/travellers?limit=10&page=${page}`);
+      let response = await fetch(`/api/travellers?limit=10&page=${page}&sort=budget&order=${sort_order}`);
       let json = await response.json();
       set_page_end_point(json.total_pages);
       set_data(json.data);
@@ -27,7 +28,7 @@ const Dashboard = () => {
   useEffect(() => {
     document.body.style.background = "white";
     load();
-  }, [page])
+  }, [page, sort_order])
 
   return (
     <main className={styles.container}>
@@ -41,7 +42,11 @@ const Dashboard = () => {
             <div className={styles.table_navigator}>
 
               <div>
-                <h1> End {page_end_point} </h1>
+                <select name="sort" onChange={(event) => { set_sort_order(event.target.value) }}>
+                  <option value=""> Sort By Budget </option>
+                  <option value="asc"> Low to High </option>
+                  <option value="dsc"> High to Low </option>
+                </select>
               </div>
 
               <div className={styles.page_navigator}>
@@ -50,7 +55,7 @@ const Dashboard = () => {
                   className={styles.arrow}
                   onClick={() => { page_onchange_handler(-1) }}
                 />
-                <p> {page} </p>
+                <b> {page} </b>
                 <SlArrowRight
                   style={page === page_end_point ? { pointerEvents: "none", opacity: "70%" } : {}}
                   className={styles.arrow}
@@ -86,9 +91,9 @@ const Dashboard = () => {
                       <td> {name} </td>
                       <td> {email} </td>
                       <td> {place} </td>
-                      <td> {budget} </td>
+                      <td> ${budget} </td>
                       <td> {persons} </td>
-                      <td> {budget * persons} </td>
+                      <td> ${budget * persons} </td>
                     </tr>
                   )
 

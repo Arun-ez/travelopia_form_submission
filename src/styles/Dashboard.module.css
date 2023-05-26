@@ -5,10 +5,19 @@
 
 .table_container {
     width: 100%;
+    min-height: 80vh;
 }
 
 .table_navigator {
     display: flex;
+    padding: 20px 0px 20px 0px;
+}
+
+.table_navigator select {
+    border: 1px solid #f2f2f2;
+    padding: 16px 40px 16px 40px;
+    border-radius: 10px;
+    font-size: 18px;
 }
 
 .table_navigator>div {

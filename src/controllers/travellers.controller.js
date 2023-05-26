@@ -3,15 +3,20 @@ import { createConnection } from "@/configs/MongoConnection";
 
 const getAllData = async (query) => {
 
-    let skip = 0;
+    let skip_criteria = 0;
+    let sort_criteria = {};
 
     if (query.page && query.page > 1 && query.limit) {
-        skip = query.limit * (query.page - 1);
+        skip_criteria = query.limit * (query.page - 1);
+    }
+
+    if (query.sort && query.order) {
+        sort_criteria[query.sort] = query.order === 'dsc' ? -1 : 1;
     }
 
     try {
         await createConnection();
-        let response = await Traveller.find({}).limit(query.limit).skip(skip);
+        let response = await Traveller.find({}).limit(query.limit).skip(skip_criteria).sort(sort_criteria);
         let total = await Traveller.count();
         let pages = !query.limit ? 1 : Math.ceil(total / query.limit);
         return { data: response, total_pages: pages, page: query.page || 1 }
