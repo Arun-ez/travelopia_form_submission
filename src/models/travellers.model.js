@@ -24,7 +24,8 @@ const TravellerSchema = new mongoose.Schema({
     budget: {
         type: Number,
         required: true
-    },
-})
+    }
+
+}, { timestamps: true })
 
 export default mongoose.models.travellers || mongoose.model("travellers", TravellerSchema);
