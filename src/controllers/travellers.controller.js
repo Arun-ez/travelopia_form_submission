@@ -36,4 +36,15 @@ const postData = async (data) => {
     }
 }
 
-export { getAllData, postData }
+
+const deleteData = async (id) => {
+    try {
+        await createConnection();
+        let response = await Traveller.deleteOne({ _id: id });
+        return { data: `Data with id ${id} has been deleted` }
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+export { getAllData, postData, deleteData }

@@ -19,7 +19,6 @@ const POST = async (req, res) => {
     }
 }
 
-
 const handler = (req, res) => {
 
     const { method } = req;

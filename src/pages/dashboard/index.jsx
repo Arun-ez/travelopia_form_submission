@@ -3,6 +3,7 @@ import styles from '@/styles/Dashboard.module.css';
 import MoonLoader from "react-spinners/MoonLoader";
 import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';
+import { MdDelete } from 'react-icons/md';
 import { SlArrowLeft, SlArrowRight, SlRefresh } from 'react-icons/sl';
 
 
@@ -52,7 +53,18 @@ const Dashboard = () => {
     }, 3000)
     load();
     set_timeoutId(timerId);
+  }
 
+  const delete_item = async (id) => {
+    try {
+      let response = await fetch(`/api/travellers/${id}`, {
+        method: 'DELETE'
+      });
+
+      load();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -112,6 +124,7 @@ const Dashboard = () => {
                   <th> Budget(each in $) </th>
                   <th> No of Travellers </th>
                   <th> Net Amount($) </th>
+                  <th> Delete </th>
                 </tr>
               </thead>
 
@@ -127,6 +140,7 @@ const Dashboard = () => {
                       <td> ${budget} </td>
                       <td> {persons} </td>
                       <td> ${budget * persons} </td>
+                      <td> <MdDelete onClick={() => { delete_item(_id) }} fontSize={20} cursor={'pointer'} /> </td>
                     </tr>
                   )
 
