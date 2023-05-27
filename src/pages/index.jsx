@@ -69,8 +69,8 @@ const Home = () => {
               <option value="africa"> Africa </option>
               <option value="europe"> Europe </option>
             </select>
-            <input required name="persons" placeholder="No. of Travellers" type="text" />
-            <input required name="budget" placeholder="Budget per person ($) " type="text" />
+            <input required name="persons" placeholder="No. of Travellers" type="number" />
+            <input required name="budget" placeholder="Budget per person ($) " type="number" />
             <div>
               <button id='submit_btn'> Submit </button>
             </div>
