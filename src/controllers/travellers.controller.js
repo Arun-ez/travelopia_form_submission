@@ -30,7 +30,7 @@ const postData = async (data) => {
     try {
         await createConnection();
         let response = await Traveller.create(data);
-        return { data: `Details submitted with id ${response._id}` }
+        return { data: `Details has been submitted with id ${response._id}` }
     } catch (error) {
         throw new Error(error);
     }

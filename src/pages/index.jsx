@@ -1,8 +1,11 @@
 import styles from '@/styles/Home.module.css';
-import { useEffect } from 'react';
+import MoonLoader from "react-spinners/MoonLoader";
+import { useEffect, useState } from 'react';
 
 const Home = () => {
 
+  let [submission_status, set_submission_status] = useState("");
+  let [submitting, set_submitting] = useState(false);
 
   const post_data = async (data, form) => {
     try {
@@ -15,12 +18,14 @@ const Home = () => {
 
       });
 
-      let res = await response.json();
+      let json = await response.json();
 
-      console.log(res)
+      setTimeout(() => {
+        set_submission_status(json.data);
+      }, 1000)
 
     } catch (error) {
-      console.log(error);
+      set_submission_status(error.message);
     }
   }
 
@@ -36,6 +41,9 @@ const Home = () => {
       budget: budget.value
     }
 
+
+    set_submitting(true);
+
     post_data(data, event);
   }
 
@@ -47,24 +55,56 @@ const Home = () => {
 
   return (
     <main className={`${styles.container}`}>
-      <h1> Fill The Details </h1>
-      <p> Start your first journey with Travelopia </p>
-      <form onSubmit={form_onsubmit_handler}>
-        <input required name="name" placeholder="Name" type="text" />
-        <input required name="email" placeholder="Email" type="email" />
-        <select name="place">
-          <option value=""> Where do you want to go? </option>
-          <option value="india"> India </option>
-          <option value="africa"> Africa </option>
-          <option value="europe"> Europe </option>
-        </select>
-        <input required name="persons" placeholder="No. of Travellers" type="text" />
-        <input required name="budget" placeholder="Budget per person ($) " type="text" />
-        <div>
-          <button> Submit </button>
-        </div>
 
-      </form>
+      {!submitting ?
+        <>
+          <h1> Fill The Details </h1>
+          <p> Start your first journey with Travelopia </p>
+          <form onSubmit={form_onsubmit_handler}>
+            <input required name="name" placeholder="Name" type="text" />
+            <input required name="email" placeholder="Email" type="email" />
+            <select name="place">
+              <option value=""> Where do you want to go? </option>
+              <option value="india"> India </option>
+              <option value="africa"> Africa </option>
+              <option value="europe"> Europe </option>
+            </select>
+            <input required name="persons" placeholder="No. of Travellers" type="text" />
+            <input required name="budget" placeholder="Budget per person ($) " type="text" />
+            <div>
+              <button> Submit </button>
+            </div>
+
+          </form>
+        </>
+
+        :
+
+        <>
+          {submission_status ?
+            <>
+              <h1 style={{ marginTop: "50px" }}> Submitted </h1>
+              <h3> {submission_status} </h3>
+              <button
+                style={{ marginTop: "30px" }}
+                onClick={() => { set_submitting(false); set_submission_status("") }}
+              >
+                Submit Another one
+              </button>
+            </>
+
+            :
+
+            <>
+              <MoonLoader color="black" cssOverride={{ marginTop: "50px" }} />
+            </>
+          }
+
+        </>
+
+      }
+
+
     </main>
   )
 }

@@ -1,12 +1,14 @@
 import Papa from 'papaparse';
-import { saveAs } from 'file-saver';
 import styles from '@/styles/Dashboard.module.css';
+import MoonLoader from "react-spinners/MoonLoader";
+import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';
 import { SlArrowLeft, SlArrowRight, SlRefresh } from 'react-icons/sl';
 
 
 const Dashboard = () => {
 
+  const [loading, set_loading] = useState(true);
   const [data, set_data] = useState(null);
   const [page, set_page] = useState(1);
   const [page_end_point, set_page_end_point] = useState(0);
@@ -41,6 +43,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     document.body.style.background = "white";
+    set_data([]);
+    set_loading(true);
+    setTimeout(() => {
+      set_loading(false);
+    }, 3000)
     load();
   }, [page, sort_order])
 
@@ -82,6 +89,7 @@ const Dashboard = () => {
                 <button onClick={csv_download_handler} > Save as CSV </button>
               </div>
             </div>
+
             <table className={styles.table}>
 
               <thead>
@@ -122,7 +130,15 @@ const Dashboard = () => {
         :
 
         <>
-          <h1> Not Found </h1>
+
+          {loading ?
+            <MoonLoader color="black" cssOverride={{ marginTop: "50px" }} />
+            :
+            <h1> Not Data Found! </h1>
+          }
+
+
+
         </>
 
       }
