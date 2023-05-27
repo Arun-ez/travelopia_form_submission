@@ -54,20 +54,20 @@ https://travelopia-form-submission.vercel.app/
 
 #### Get all travellers data
 
-```http
+```bash
   GET /api/travellers
 ```
 
 #### Get Sorted Data based on Budget
 
-```http
+```bash
   GET /api/travellers?sort=budget&order=asc
   GET /api/travellers?sort=budget&order=dsc
 ```
 
 #### Post Data
 
-```http
+```bash
   POST /api/travellers
 ```
 | Required | Type     | Description                       |
@@ -77,7 +77,7 @@ https://travelopia-form-submission.vercel.app/
 
 #### Delete Data by id
 
-```http
+```bash
   DELETE /api/travellers/${id}
 ```
 
