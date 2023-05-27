@@ -1,14 +1,16 @@
 .container {
-    width: 80%;
+    width: 90%;
     color: black;
 }
 
 .table_container {
     width: 100%;
     min-height: 80vh;
+    overflow-x: auto;
 }
 
 .table_navigator {
+    min-width: 800px;
     display: flex;
     padding: 20px 0px 20px 0px;
 }

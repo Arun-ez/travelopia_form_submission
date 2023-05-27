@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [page, set_page] = useState(1);
   const [page_end_point, set_page_end_point] = useState(0);
   const [sort_order, set_sort_order] = useState("");
+  const [timeOutId, set_timeoutId] = useState(null);
 
   const load = async () => {
     try {
@@ -41,55 +42,64 @@ const Dashboard = () => {
     }
   }
 
-  useEffect(() => {
-    document.body.style.background = "white";
-    set_data([]);
+  const preFetchConfig = () => {
+    set_data(null);
     set_loading(true);
-    setTimeout(() => {
+
+    clearTimeout(timeOutId);
+    let timerId = setTimeout(() => {
       set_loading(false);
     }, 3000)
     load();
+    set_timeoutId(timerId);
+
+  }
+
+  useEffect(() => {
+    preFetchConfig();
+    document.body.style.background = "white";
+    return () => { clearTimeout(timeOutId) }
   }, [page, sort_order])
 
   return (
     <main className={styles.container}>
       <h1> Dashboard </h1>
 
-      {data ?
+      <div className={styles.table_container}>
 
-        <>
-          <div className={styles.table_container}>
+        <div className={styles.table_navigator}>
 
-            <div className={styles.table_navigator}>
+          <div>
+            <select name="sort" onChange={(event) => { set_sort_order(event.target.value) }}>
+              <option value=""> Sort By Budget </option>
+              <option value="asc"> Low to High </option>
+              <option value="dsc"> High to Low </option>
+            </select>
+          </div>
 
-              <div>
-                <select name="sort" onChange={(event) => { set_sort_order(event.target.value) }}>
-                  <option value=""> Sort By Budget </option>
-                  <option value="asc"> Low to High </option>
-                  <option value="dsc"> High to Low </option>
-                </select>
-              </div>
+          <div className={styles.page_navigator}>
+            <SlArrowLeft
+              style={page === 1 ? { pointerEvents: "none", opacity: "70%" } : {}}
+              className={styles.arrow}
+              onClick={() => { page_onchange_handler(-1) }}
+            />
+            <b> {page} </b>
+            <SlArrowRight
+              style={page === page_end_point ? { pointerEvents: "none", opacity: "70%" } : {}}
+              className={styles.arrow}
+              onClick={() => { page_onchange_handler(1) }}
+            />
+          </div>
 
-              <div className={styles.page_navigator}>
-                <SlArrowLeft
-                  style={page === 1 ? { pointerEvents: "none", opacity: "70%" } : {}}
-                  className={styles.arrow}
-                  onClick={() => { page_onchange_handler(-1) }}
-                />
-                <b> {page} </b>
-                <SlArrowRight
-                  style={page === page_end_point ? { pointerEvents: "none", opacity: "70%" } : {}}
-                  className={styles.arrow}
-                  onClick={() => { page_onchange_handler(1) }}
-                />
-              </div>
+          <div>
+            <SlRefresh className={styles.refresh} onClick={preFetchConfig} />
+            <button onClick={csv_download_handler} > Save as CSV </button>
+          </div>
+        </div>
 
-              <div>
-                <SlRefresh className={styles.refresh} onClick={load} />
-                <button onClick={csv_download_handler} > Save as CSV </button>
-              </div>
-            </div>
 
+        {data ?
+          <>
             <table className={styles.table}>
 
               <thead>
@@ -124,26 +134,21 @@ const Dashboard = () => {
               </tbody>
 
             </table>
-          </div>
-        </>
 
-        :
+          </>
 
-        <>
+          :
 
-          {loading ?
-            <MoonLoader color="black" cssOverride={{ marginTop: "50px" }} />
-            :
-            <h1> Not Data Found! </h1>
-          }
+          <>
+            {loading ?
+              <MoonLoader color="black" cssOverride={{ margin: "50px auto" }} />
+              :
+              <h1 style={{ textAlign: "center" }} > Not Data Found! </h1>
+            }
+          </>
 
-
-
-        </>
-
-      }
-
-
+        }
+      </div>
     </main>
   )
 }
