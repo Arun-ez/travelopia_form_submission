@@ -49,7 +49,7 @@ https://travelopia-form-submission.vercel.app/
 ````
 
 - Wait for the cypress window to open and select E2E Testing then choose your browser
-- Run form.specs.cy.js (Test cases can be found in cypress/e2e)
+- Run form.specs.cy.js <Test cases can be found in cypress/e2e>
 ## API Reference
 
 #### Get all travellers data
