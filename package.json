@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open",
+    "test": "start-server-and-test dev 3000 cypress"
   },
   "dependencies": {
     "file-saver": "^2.0.5",
@@ -17,5 +19,9 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-spinners": "^0.13.8"
+  },
+  "devDependencies": {
+    "cypress": "^12.13.0",
+    "start-server-and-test": "^2.0.0"
   }
 }

@@ -72,7 +72,7 @@ const Home = () => {
             <input required name="persons" placeholder="No. of Travellers" type="text" />
             <input required name="budget" placeholder="Budget per person ($) " type="text" />
             <div>
-              <button> Submit </button>
+              <button id='submit_btn'> Submit </button>
             </div>
 
           </form>
