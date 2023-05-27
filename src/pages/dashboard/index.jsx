@@ -10,9 +10,9 @@ import { SlArrowLeft, SlArrowRight, SlRefresh } from 'react-icons/sl';
 const Dashboard = () => {
 
   const [loading, set_loading] = useState(true);
-  const [data, set_data] = useState(null);
+  const [data, set_data] = useState([]);
   const [page, set_page] = useState(1);
-  const [page_end_point, set_page_end_point] = useState(0);
+  const [page_end_point, set_page_end_point] = useState(1);
   const [sort_order, set_sort_order] = useState("");
   const [timeOutId, set_timeoutId] = useState(null);
 
@@ -20,7 +20,7 @@ const Dashboard = () => {
     try {
       let response = await fetch(`/api/travellers?limit=10&page=${page}&sort=budget&order=${sort_order}`);
       let json = await response.json();
-      set_page_end_point(json.total_pages);
+      set_page_end_point(json.total_pages || 1);
       set_data(json.data);
     } catch (error) {
       console.log(error);
@@ -44,13 +44,13 @@ const Dashboard = () => {
   }
 
   const preFetchConfig = () => {
-    set_data(null);
+    set_data([]);
     set_loading(true);
 
     clearTimeout(timeOutId);
     let timerId = setTimeout(() => {
       set_loading(false);
-    }, 3000)
+    }, 5000)
     load();
     set_timeoutId(timerId);
   }
@@ -96,6 +96,7 @@ const Dashboard = () => {
               onClick={() => { page_onchange_handler(-1) }}
             />
             <b> {page} </b>
+
             <SlArrowRight
               style={page === page_end_point ? { pointerEvents: "none", opacity: "70%" } : {}}
               className={styles.arrow}
@@ -109,8 +110,8 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {data.length ?
 
-        {data ?
           <>
             <table className={styles.table}>
 
