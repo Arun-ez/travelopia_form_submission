@@ -4,14 +4,21 @@
 Form to request for a travel
 
 
-
 ## Live
 
 https://travelopia-form-submission.vercel.app/
 
 ## Tech Stack
 
-- HTML, CSS, NextJs 
+- NextJs, CSS 
+
+## Folder Structure
+
+- main - consist both frontend and backend code and configured by default
+- frontned - The frontend codebase separated here
+- backend - The frontend codebase separated here
+
+`Please Note:-` frontend and backend folders are separated out of main folder just for understading purpose, those cannot be run please check main directory to run and test the project, further instructions provided below
 
 
 ## Running Instructions
@@ -25,6 +32,7 @@ https://travelopia-form-submission.vercel.app/
 - Install Dependencies
 
 ````bash
+    cd ./main
     npm i
 ````
 
@@ -56,6 +64,12 @@ https://travelopia-form-submission.vercel.app/
 
 ```bash
   GET /api/travellers
+```
+
+#### Limit and Pagination
+
+```bash
+  GET /api/travellers?limit=10page=1
 ```
 
 #### Get Sorted Data based on Budget
