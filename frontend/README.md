@@ -29,7 +29,7 @@ https://travelopia-form-submission.vercel.app/
     git clone https://github.com/Arun-ez/travelopia_form_submission.git
 ````
 
-- Install Dependencies(inside travelopia_form_submission folder)
+- Install Dependencies ( inside travelopia_form_submission folder )
 
 ````bash
     cd ./main
