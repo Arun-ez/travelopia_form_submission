@@ -95,7 +95,8 @@ const Dashboard = () => {
               className={styles.arrow}
               onClick={() => { page_onchange_handler(-1) }}
             />
-            <b> {page} </b>
+
+            <b> Page {page} / {page_end_point} </b>
 
             <SlArrowRight
               style={page === page_end_point ? { pointerEvents: "none", opacity: "70%" } : {}}
