@@ -16,7 +16,7 @@ https://travelopia-form-submission.vercel.app/
 
 - main - consist both frontend and backend code and configured by default
 - frontned - The frontend codebase separated here
-- backend - The frontend codebase separated here
+- backend - The backend codebase separated here
 
 `Please Note:-` frontend and backend folders are separated out of main folder just for understading purpose, those cannot be run please check main directory to run and test the project, further instructions provided below
 
