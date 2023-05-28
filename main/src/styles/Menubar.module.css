@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.container a {
+    border-radius: 20px;
+    padding: 10px 30px 10px 30px;
+    transition: all 0.6s;
+}
+
+.container a:hover {
+    letter-spacing: 2px;
+}
+
+.active {
+    color: white;
+    background-color: black;
+}
+
+.inactive {
+    color: black;
+    background-color: whitesmoke;
+}

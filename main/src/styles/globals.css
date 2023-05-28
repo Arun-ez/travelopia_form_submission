@@ -1,0 +1,23 @@
+@font-face {
+  font-family: Designer;
+  src: url(../fonts/DESIGNER.otf);
+}
+
+body {
+  background-image: url('/background.jpg');
+  background-size: cover;
+  color: white;
+  background-attachment: fixed;
+}
+
+main {
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
