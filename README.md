@@ -3,11 +3,6 @@
 
 Form to request for a travel
 
-
-## Live
-
-https://travelopia-form-submission.vercel.app/
-
 ## Tech Stack
 
 - NextJs, CSS 
